@@ -20,6 +20,11 @@ import javax.sql.DataSource;
 import org.apache.ibatis.transaction.TransactionFactory;
 
 /**
+ * final修饰的不可变类，不可被别的类继承
+ * 应用了建造者模式：将一个复杂对象的构造与它的表示分离，
+ * 使同样的构建过程可以创建不同的表示，它是将一个复杂的对象分解为多个简单的对象，然后一步一步构建而成。
+ * 它将变与不变相分离，即产品的组成部分是不变的，但每一部分是可以灵活选择的。
+ *
  * @author Clinton Begin
  */
 public final class Environment {
