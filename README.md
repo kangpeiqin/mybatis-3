@@ -13,7 +13,7 @@ Reader reader = Resources.getResourceAsReader("org/apache/ibatis/submitted/no_pa
 SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
 ```
 #### 其他细节
-##### (1).采用`XPath`方式对`XML`文件进行解析
+##### (1).采用`XPath`方式对`XML`文件进行解析。MyBatis通过XPathParser工具类封装了对XML的解析操作，同时使用XNode类增强了对XML节点的操作
 > JDK API中提供了3种方式解析XML，分别为DOM、SAX和XPath。下面的例子展示用`XPath`对`XML`文件进行解析
 - 要解析的xml文件
 ```xml

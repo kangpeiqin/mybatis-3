@@ -28,6 +28,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
+ * XNode类增强了对XML节点的操作
  * @author Clinton Begin
  */
 public class XNode {

@@ -41,15 +41,23 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
 /**
+ * 对XPath进行封装
+ *
  * @author Clinton Begin
  * @author Kazuki Shimizu
  */
 public class XPathParser {
 
+  /**
+   * 要解析的XML文档
+   */
   private final Document document;
   private boolean validation;
   private EntityResolver entityResolver;
   private Properties variables;
+  /**
+   * 可以使用XPath对象执行表达式，获取XML内容
+   */
   private XPath xpath;
 
   public XPathParser(String xml) {
@@ -227,6 +235,12 @@ public class XPathParser {
     }
   }
 
+  /**
+   * 通过字节流创建文档对象
+   *
+   * @param inputSource
+   * @return
+   */
   private Document createDocument(InputSource inputSource) {
     // important: this must only be called AFTER common constructor
     try {
