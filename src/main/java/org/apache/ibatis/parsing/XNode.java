@@ -33,11 +33,20 @@ import org.w3c.dom.NodeList;
  */
 public class XNode {
 
+  /**
+   * xml结点
+   */
   private final Node node;
   private final String name;
   private final String body;
+  /**
+   * 属性
+   */
   private final Properties attributes;
   private final Properties variables;
+  /**
+   * 对XPath进行封装
+   */
   private final XPathParser xpathParser;
 
   public XNode(XPathParser xpathParser, Node node, Properties variables) {
@@ -328,6 +337,12 @@ public class XNode {
     }
   }
 
+  /**
+   * 获取结点的属性
+   * NamedNodeMap：represent collections of nodes that can be accessed by name.
+   * @param n
+   * @return
+   */
   private Properties parseAttributes(Node n) {
     Properties attributes = new Properties();
     NamedNodeMap attributeNodes = n.getAttributes();

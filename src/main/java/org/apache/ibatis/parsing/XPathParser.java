@@ -178,6 +178,11 @@ public class XPathParser {
     return Integer.valueOf(evalString(root, expression));
   }
 
+  /**
+   * 通过表达式获取标签数值：如：/employee/birth_date/year
+   * @param expression
+   * @return
+   */
   public Long evalLong(String expression) {
     return evalLong(document, expression);
   }
