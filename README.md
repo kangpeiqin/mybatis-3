@@ -2,7 +2,35 @@
 * 官方文档： [See the docs](http://mybatis.github.io/mybatis-3)
 ### 架构图
 ![image.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/58853c11b6c64138a34847b7d730e0bc~tplv-k3u1fbpfcp-watermark.image)
-### 1、配置文件的加载和解析流程
+### 常用工具类
+- MetaObject
+> 用于获取和设置对象的属性值
+- MetaClass
+> 反射工具类，用于获取类相关的信息。例如，可以使用MetaClass判断某个类是否有默认构造方法，还可以判断类的属性是否有对应的Getter/Setter方法
+- ObjectFactory
+> MyBatis中的对象工厂，只有一个默认的实现，即DefaultObjectFactory
+- ProxyFactory
+> 代理工厂，主要用于创建动态代理对象，两个不同的实现类，分别为CglibProxyFactory和JavassistProxyFactory
+### 核心组件
+- Configuration
+> 描述MyBatis主配置文件的信息。
+- Executor
+> 定义了对数据库的增删改查方法，SqlSession是MyBatis提供的操作数据库的API，但是真正执行SQL的是Executor组件。
+- MappedStatement
+> 描述<select|update|insert|delete>或者@Select、@Update等注解配置的SQL信息
+- StatementHandle
+> 封装了对JDBC Statement的操作
+- TypeHandler
+> 处理JDBC类型与Java类型之间的转换
+- ParameterHandler
+> 为`SQL`参数占位符设置值
+- ResultSetHandler
+> 对结果集或存储过程的执行结果进行处理。
+### 缓存
+> 在应用程序和数据库都是单节点的情况下，合理使用缓存能够减少数据库IO，显著提升系统性能。
+
+### 执行流程
+#### 1、配置文件的加载和解析流程
 ![note.jpg](https://s3.bmp.ovh/imgs/2021/09/3497ff641ce73e23.jpg)
 - 读取主配置文件，转成字符流
 ```text
@@ -12,7 +40,7 @@ Reader reader = Resources.getResourceAsReader("org/apache/ibatis/submitted/no_pa
 ```text
 SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
 ```
-#### 其他细节
+> 其他细节
 ##### (1).采用`XPath`方式对`XML`文件进行解析。MyBatis通过XPathParser工具类封装了对XML的解析操作，同时使用XNode类增强了对XML节点的操作
 > JDK API中提供了3种方式解析XML，分别为DOM、SAX和XPath。下面的例子展示用`XPath`对`XML`文件进行解析
 - 要解析的xml文件
