@@ -28,6 +28,9 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.transaction.Transaction;
 
 /**
+ * Executor采用模板方法设计模式，
+ * BaseExecutor类用于处理一些通用的逻辑
+ * 其中一级缓存相关的逻辑就是在BaseExecutor类中完成的。
  * @author Clinton Begin
  */
 public interface Executor {

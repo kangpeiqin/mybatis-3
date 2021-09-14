@@ -55,7 +55,13 @@ public abstract class BaseExecutor implements Executor {
   protected Executor wrapper;
 
   protected ConcurrentLinkedQueue<DeferredLoad> deferredLoads;
+  /**
+   * 一级缓存对象：用于缓存MyBatis查询结果
+   */
   protected PerpetualCache localCache;
+  /**
+   * 用于缓存存储过程调用结果。
+   */
   protected PerpetualCache localOutputParameterCache;
   protected Configuration configuration;
 
@@ -191,6 +197,9 @@ public abstract class BaseExecutor implements Executor {
     }
   }
 
+  /**
+   * 创建描述缓存的Key值
+   */
   @Override
   public CacheKey createCacheKey(MappedStatement ms, Object parameterObject, RowBounds rowBounds, BoundSql boundSql) {
     if (closed) {
