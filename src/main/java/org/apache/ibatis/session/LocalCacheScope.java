@@ -16,6 +16,9 @@
 package org.apache.ibatis.session;
 
 /**
+ * 用于控制一级缓存的级别
+ * SESSION：缓存对整个SqlSession有效，只有执行DML语句（更新语句）时，缓存才会被清除。
+ * STATEMENT时，缓存仅对当前执行的语句有效，当语句执行完毕后，缓存就会被清空。
  * @author Eduardo Macarron
  */
 public enum LocalCacheScope {

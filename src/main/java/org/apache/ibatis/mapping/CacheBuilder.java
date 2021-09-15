@@ -35,6 +35,7 @@ import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
 
 /**
+ * 通过生成器模式创建缓存对象。
  * @author Clinton Begin
  */
 public class CacheBuilder {
