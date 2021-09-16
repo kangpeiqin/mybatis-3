@@ -665,6 +665,9 @@ public class Configuration {
     return newExecutor(transaction, defaultExecutorType);
   }
 
+  /**
+   * 工厂方法：返回Executor对象
+   */
   public Executor newExecutor(Transaction transaction, ExecutorType executorType) {
     executorType = executorType == null ? defaultExecutorType : executorType;
     executorType = executorType == null ? ExecutorType.SIMPLE : executorType;
@@ -676,6 +679,7 @@ public class Configuration {
     } else {
       executor = new SimpleExecutor(this, transaction);
     }
+    //如果开启缓存，则使用CachingExecutor对Executor进行装饰
     if (cacheEnabled) {
       executor = new CachingExecutor(executor);
     }

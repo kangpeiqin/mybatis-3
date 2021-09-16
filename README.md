@@ -28,10 +28,10 @@
 > 对结果集或存储过程的执行结果进行处理。
 ### 缓存
 > 在应用程序和数据库都是单节点的情况下，合理使用缓存能够减少数据库IO，显著提升系统性能。MyBatis的缓存分为一级缓存和二级缓存，一级缓存默认是开启的，而且不能关闭。
-- 一级缓存
+#### 一级缓存
 > 级别：SESSION：缓存对整个SqlSession有效。STATEMENT：缓存仅对当前执行的语句有效
-> - 使用PerpetualCache实例实现
-- 二级缓存
+#### 二级缓存
+- 使用
 > 主配置文件中配置是否开启缓存
 ```text
 <settings>
@@ -44,7 +44,8 @@
 <cache flushInterval="3600000" size="512"/>
 ```
 ![cache](https://s3.bmp.ovh/imgs/2021/09/b21737bf4ac84cb4.jpg)
-
+- 实现原理
+> 利用CachingExecutor装饰Executor，增加了二级缓存功能
 ### 执行流程
 #### 1、配置文件的加载和解析流程
 ![note.jpg](https://s3.bmp.ovh/imgs/2021/09/3497ff641ce73e23.jpg)
