@@ -29,12 +29,16 @@ import org.apache.ibatis.scripting.LanguageDriver;
 import org.apache.ibatis.session.Configuration;
 
 /**
+ * 描述<select|update|insert|delete>或者@Select、@Update等注解配置的SQL信息
  * @author Clinton Begin
  */
 public final class MappedStatement {
 
   private String resource;
   private Configuration configuration;
+  /**
+   * 在命名空间中唯一的标识符，可以被用来引用这条配置信息
+   */
   private String id;
   private Integer fetchSize;
   private Integer timeout;
@@ -45,6 +49,9 @@ public final class MappedStatement {
   private ParameterMap parameterMap;
   private List<ResultMap> resultMaps;
   private boolean flushCacheRequired;
+  /**
+   * 是否使用二级缓存
+   */
   private boolean useCache;
   private boolean resultOrdered;
   private SqlCommandType sqlCommandType;
