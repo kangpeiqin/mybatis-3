@@ -31,14 +31,26 @@ import org.apache.ibatis.transaction.Transaction;
  * Executor采用模板方法设计模式，
  * BaseExecutor类用于处理一些通用的逻辑
  * 其中一级缓存相关的逻辑就是在BaseExecutor类中完成的。
+ *
  * @author Clinton Begin
  */
 public interface Executor {
 
   ResultHandler NO_RESULT_HANDLER = null;
 
+  /**
+   * 更新
+   *
+   * @param ms
+   * @param parameter
+   * @return
+   * @throws SQLException
+   */
   int update(MappedStatement ms, Object parameter) throws SQLException;
 
+  /**
+   * 查询
+   */
   <E> List<E> query(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, CacheKey cacheKey, BoundSql boundSql) throws SQLException;
 
   <E> List<E> query(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler) throws SQLException;

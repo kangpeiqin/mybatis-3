@@ -86,6 +86,9 @@ public class BlockingCache implements Cache {
     delegate.clear();
   }
 
+  /**
+   * 获取锁
+   */
   private void acquireLock(Object key) {
     CountDownLatch newLatch = new CountDownLatch(1);
     while (true) {
