@@ -16,15 +16,6 @@
 > 描述MyBatis主配置文件的信息。
 - Executor
 > 定义了对数据库的增删改查方法，SqlSession是MyBatis提供的操作数据库的API，但是真正执行SQL的是Executor组件。
-```mermaid
-classDiagram
-class Executor
-<<Interface>> Executor
-Executor : +update() int 
-class BaseExecutor
-<<abstract>> BaseExecutor
-Executor <|-- BaseExecutor
-```
 - MappedStatement
 > 描述<select|update|insert|delete>或者@Select、@Update等注解配置的SQL信息
 - StatementHandle
