@@ -22,6 +22,8 @@ import java.util.function.Function;
 
 public class MapUtil {
   /**
+   * 如果可以根据 key 获取到 Map 当中的数据，则返回数据
+   *
    * A temporary workaround for Java 8 specific performance issue JDK-8161372 .<br>
    * This class should be removed once we drop Java 8 support.
    *

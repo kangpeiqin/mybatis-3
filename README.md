@@ -1,5 +1,6 @@
 ## MyBatis 源码阅读
 * 官方文档： [See the docs](http://mybatis.github.io/mybatis-3)
+- 带着问题阅读：整体的流程，如何实现，解决的问题，解决问题的方式
 ### 架构图
 ![image.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/58853c11b6c64138a34847b7d730e0bc~tplv-k3u1fbpfcp-watermark.image)
 ### 常用工具类
@@ -108,5 +109,7 @@ public class XPathTest {
 }
 ```
 总结：创建表示XML文档的Document对象 —> 创建用于执行XPath表达式的XPath对象 —> 使用XPath对象执行表达式，获取XML内容
+### 动态 `SQL`
 
-
+## Q&A
+具体解决的问题？如何解决?

@@ -28,6 +28,12 @@ public final class PropertyNamer {
     // Prevent Instantiation of Static Class
   }
 
+  /**
+   * 获取getter方法对应的获取的属性
+   *
+   * @param name
+   * @return
+   */
   public static String methodToProperty(String name) {
     if (name.startsWith("is")) {
       name = name.substring(2);
@@ -36,8 +42,9 @@ public final class PropertyNamer {
     } else {
       throw new ReflectionException("Error parsing property name '" + name + "'.  Didn't start with 'is', 'get' or 'set'.");
     }
-
+    //名称格式转换
     if (name.length() == 1 || (name.length() > 1 && !Character.isUpperCase(name.charAt(1)))) {
+      //将首字母转成小写
       name = name.substring(0, 1).toLowerCase(Locale.ENGLISH) + name.substring(1);
     }
 
@@ -48,6 +55,12 @@ public final class PropertyNamer {
     return isGetter(name) || isSetter(name);
   }
 
+  /**
+   * 判断是否为getter方法
+   *
+   * @param name
+   * @return
+   */
   public static boolean isGetter(String name) {
     return (name.startsWith("get") && name.length() > 3) || (name.startsWith("is") && name.length() > 2);
   }

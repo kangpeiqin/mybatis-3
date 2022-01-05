@@ -42,14 +42,16 @@ public class Plugin implements InvocationHandler {
   }
 
   public static Object wrap(Object target, Interceptor interceptor) {
+    //获取类-方法集合
     Map<Class<?>, Set<Method>> signatureMap = getSignatureMap(interceptor);
+    //获取插件类型
     Class<?> type = target.getClass();
     Class<?>[] interfaces = getAllInterfaces(type, signatureMap);
     if (interfaces.length > 0) {
       return Proxy.newProxyInstance(
-          type.getClassLoader(),
-          interfaces,
-          new Plugin(target, interceptor, signatureMap));
+        type.getClassLoader(),
+        interfaces,
+        new Plugin(target, interceptor, signatureMap));
     }
     return target;
   }
@@ -67,6 +69,9 @@ public class Plugin implements InvocationHandler {
     }
   }
 
+  /**
+   * 获取类和对应方法的集合 Map
+   */
   private static Map<Class<?>, Set<Method>> getSignatureMap(Interceptor interceptor) {
     Intercepts interceptsAnnotation = interceptor.getClass().getAnnotation(Intercepts.class);
     // issue #251
