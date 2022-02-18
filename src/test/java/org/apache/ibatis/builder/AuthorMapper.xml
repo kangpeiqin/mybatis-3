@@ -22,6 +22,7 @@
 
 <mapper namespace="org.apache.ibatis.domain.blog.mappers.AuthorMapper">
 <!--查询参数Map-->
+    <cache/>
     <parameterMap id="selectAuthor" type="org.apache.ibatis.domain.blog.Author">
         <parameter property="id" />
     </parameterMap>

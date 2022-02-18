@@ -25,6 +25,7 @@
   <properties resource="org/apache/ibatis/databases/blog/blog-derby.properties"/>
 
   <settings>
+<!--    <setting name="localCacheScope" value="STATEMENT"/>-->
     <setting name="cacheEnabled" value="true"/>
     <setting name="lazyLoadingEnabled" value="false"/>
     <setting name="multipleResultSetsEnabled" value="true"/>
