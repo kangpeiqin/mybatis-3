@@ -23,6 +23,8 @@ import org.apache.ibatis.cache.Cache;
 import org.apache.ibatis.cache.CacheException;
 
 /**
+ * 装饰器模式：在不改变原有的类的基础，添加新的功能
+ * 实现同一个接口，可以不断进行修饰
  * <p>Simple blocking decorator
  *
  * <p>Simple and inefficient version of EhCache's BlockingCache decorator.

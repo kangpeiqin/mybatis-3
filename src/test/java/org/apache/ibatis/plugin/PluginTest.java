@@ -26,8 +26,11 @@ class PluginTest {
 
   @Test
   void mapPluginShouldInterceptGet() {
-    Map map = new HashMap();
+    Map map = new HashMap<>();
+    HelloWorld hello = new HelloWorld();
+    hello = (HelloWorld) new AlwaysMapPlugin().plugin(hello);
     map = (Map) new AlwaysMapPlugin().plugin(map);
+    assertNotEquals("Always", hello.say("hi"));
     assertEquals("Always", map.get("Anything"));
   }
 
@@ -39,7 +42,8 @@ class PluginTest {
   }
 
   @Intercepts({
-      @Signature(type = Map.class, method = "get", args = {Object.class})
+    @Signature(type = HelloWorld.class, method = "say", args = {String.class}),
+    @Signature(type = Map.class, method = "get", args = {Object.class})
   })
   public static class AlwaysMapPlugin implements Interceptor {
     @Override
@@ -47,6 +51,15 @@ class PluginTest {
       return "Always";
     }
 
+  }
+
+  /**
+   * 目标对象需要实现接口，才会去创建代理类，拦截器才会生效
+   */
+  public static class HelloWorld {
+    public String say(String hi) {
+      return "Hello World" + hi;
+    }
   }
 
 }

@@ -22,7 +22,15 @@ import org.apache.ibatis.cache.Cache;
 import org.apache.ibatis.cache.CacheException;
 
 /**
+ * 使用 HashMap 实现缓存
  * 实现一级缓存
+ *
+ * 缓存的标识(唯一键：用于标记这个缓存)、大小、存值、取值
+ *
+ * 重写 hashCode 和 equals 方法
+ *
+ * 通过比较判断是否是同一个缓存
+ *
  * @author Clinton Begin
  */
 public class PerpetualCache implements Cache {

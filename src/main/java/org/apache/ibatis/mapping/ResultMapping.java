@@ -26,6 +26,8 @@ import org.apache.ibatis.type.TypeHandler;
 import org.apache.ibatis.type.TypeHandlerRegistry;
 
 /**
+ * 结果字段映射
+ *
  * @author Clinton Begin
  */
 public class ResultMapping {

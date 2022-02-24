@@ -65,7 +65,7 @@
         </constructor>
     </resultMap>
 
-    <select id="selectAllAuthors" resultType="org.apache.ibatis.domain.blog.Author">
+    <select id="selectAllAuthors"  resultType="org.apache.ibatis.domain.blog.Author">
         select * from author
     </select>
 

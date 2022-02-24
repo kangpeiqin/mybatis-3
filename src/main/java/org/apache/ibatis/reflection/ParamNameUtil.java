@@ -33,6 +33,7 @@ public class ParamNameUtil {
   }
 
   private static List<String> getParameterNames(Executable executable) {
+    //获取所有参数名进行转换
     return Arrays.stream(executable.getParameters()).map(Parameter::getName).collect(Collectors.toList());
   }
 

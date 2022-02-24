@@ -30,11 +30,15 @@ import org.apache.ibatis.session.Configuration;
 
 /**
  * 描述<select|update|insert|delete>或者@Select、@Update等注解配置的SQL信息
+ *
  * @author Clinton Begin
  */
 public final class MappedStatement {
 
   private String resource;
+  /**
+   * 配置文件信息
+   */
   private Configuration configuration;
   /**
    * 在命名空间中唯一的标识符，可以被用来引用这条配置信息
@@ -42,6 +46,9 @@ public final class MappedStatement {
   private String id;
   private Integer fetchSize;
   private Integer timeout;
+  /**
+   * 语句类型
+   */
   private StatementType statementType;
   private ResultSetType resultSetType;
   private SqlSource sqlSource;
@@ -68,7 +75,13 @@ public final class MappedStatement {
     // constructor disabled
   }
 
+  /**
+   * 生成器模式，静态内部类
+   */
   public static class Builder {
+    /**
+     * 创建外部类对象
+     */
     private MappedStatement mappedStatement = new MappedStatement();
 
     public Builder(Configuration configuration, String id, SqlSource sqlSource, SqlCommandType sqlCommandType) {
@@ -184,8 +197,7 @@ public final class MappedStatement {
     /**
      * Resul sets.
      *
-     * @param resultSet
-     *          the result set
+     * @param resultSet the result set
      * @return the builder
      * @deprecated Use {@link #resultSets}
      */

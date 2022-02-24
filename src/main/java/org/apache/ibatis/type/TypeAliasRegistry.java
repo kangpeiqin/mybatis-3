@@ -33,10 +33,15 @@ import org.apache.ibatis.io.ResolverUtil;
 import org.apache.ibatis.io.Resources;
 
 /**
+ * 类型别名注册注册
+ *
  * @author Clinton Begin
  */
 public class TypeAliasRegistry {
 
+  /**
+   * 类型别名注册
+   */
   private final Map<String, Class<?>> typeAliases = new HashMap<>();
 
   public TypeAliasRegistry() {
@@ -111,8 +116,10 @@ public class TypeAliasRegistry {
       String key = string.toLowerCase(Locale.ENGLISH);
       Class<T> value;
       if (typeAliases.containsKey(key)) {
+        //通过注册的别名获取
         value = (Class<T>) typeAliases.get(key);
       } else {
+        //通过反射获取class对象
         value = (Class<T>) Resources.classForName(string);
       }
       return value;

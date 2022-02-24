@@ -20,6 +20,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ * 拦截器链
+ *
  * @author Clinton Begin
  */
 public class InterceptorChain {
@@ -33,6 +35,11 @@ public class InterceptorChain {
     return target;
   }
 
+  /**
+   * 添加拦截器
+   *
+   * @param interceptor
+   */
   public void addInterceptor(Interceptor interceptor) {
     interceptors.add(interceptor);
   }

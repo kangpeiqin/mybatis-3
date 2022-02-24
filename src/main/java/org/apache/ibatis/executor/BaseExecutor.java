@@ -45,14 +45,20 @@ import org.apache.ibatis.transaction.Transaction;
 import org.apache.ibatis.type.TypeHandlerRegistry;
 
 /**
- * BaseExecutor类用于处理一些通用的逻辑
+ * BaseExecutor类用于处理一些通用的逻辑，模板方法模式
  * @author Clinton Begin
  */
 public abstract class BaseExecutor implements Executor {
 
   private static final Log log = LogFactory.getLog(BaseExecutor.class);
 
+  /**
+   * 事务：获取数据库连接、提交事务、回滚
+   */
   protected Transaction transaction;
+  /**
+   * 执行器
+   */
   protected Executor wrapper;
 
   protected ConcurrentLinkedQueue<DeferredLoad> deferredLoads;
@@ -115,6 +121,13 @@ public abstract class BaseExecutor implements Executor {
     return closed;
   }
 
+  /**
+   * 更新：传入 SQL ，参数
+   * @param ms
+   * @param parameter
+   * @return
+   * @throws SQLException
+   */
   @Override
   public int update(MappedStatement ms, Object parameter) throws SQLException {
     ErrorContext.instance().resource(ms.getResource()).activity("executing an update").object(ms.getId());

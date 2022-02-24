@@ -20,10 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.apache.ibatis.cache.decorators.LoggingCache;
-import org.apache.ibatis.cache.decorators.ScheduledCache;
-import org.apache.ibatis.cache.decorators.SerializedCache;
-import org.apache.ibatis.cache.decorators.SynchronizedCache;
+import org.apache.ibatis.cache.decorators.*;
 import org.apache.ibatis.cache.impl.PerpetualCache;
 import org.junit.jupiter.api.Test;
 
@@ -33,7 +30,7 @@ class BaseCacheTest {
   void shouldDemonstrateEqualsAndHashCodeForVariousCacheTypes() {
     PerpetualCache cache = new PerpetualCache("test_cache");
     assertEquals(cache, cache);
-    assertEquals(cache, new SynchronizedCache(cache));
+    assertEquals(cache, new LruCache(new SynchronizedCache(cache)));
     assertEquals(cache, new SerializedCache(cache));
     assertEquals(cache, new LoggingCache(cache));
     assertEquals(cache, new ScheduledCache(cache));

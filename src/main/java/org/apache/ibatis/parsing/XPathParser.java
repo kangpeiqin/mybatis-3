@@ -41,7 +41,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
 /**
- * 对XPath进行封装
+ * 对XPath进行封装，xml 解析器
  *
  * @author Clinton Begin
  * @author Kazuki Shimizu

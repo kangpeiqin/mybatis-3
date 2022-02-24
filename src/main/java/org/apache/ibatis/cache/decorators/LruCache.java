@@ -21,6 +21,13 @@ import java.util.Map;
 import org.apache.ibatis.cache.Cache;
 
 /**
+ * LRU(Least Recently Used)，即最近最少使用。它核心思想是：
+ * 如果数据最近被访问过，那么将来被访问的几率也很高，
+ * 而最久没被访问的很快再次被用的可能性最低，所以被优先清理。
+ * 缓存的容量有限，不能无限存储所有数据，如果缓存满了，
+ * 当有新的数据要存进缓存当中，需要淘汰一部分已经存在缓存当中的数据
+ *
+ * 装饰器模式：用于装饰给定的缓存对象
  * Lru (least recently used) cache decorator.
  *
  * @author Clinton Begin

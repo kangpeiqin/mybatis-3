@@ -31,6 +31,9 @@ import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 
+/**
+ * 方法参数解析
+ */
 public class ParamNameResolver {
 
   public static final String GENERIC_NAME_PREFIX = "param";
@@ -56,8 +59,11 @@ public class ParamNameResolver {
 
   public ParamNameResolver(Configuration config, Method method) {
     this.useActualParamName = config.isUseActualParamName();
+    //获取方法参数的类型
     final Class<?>[] paramTypes = method.getParameterTypes();
+    //获取方法参数的注解
     final Annotation[][] paramAnnotations = method.getParameterAnnotations();
+    //使用 TreeMap 进行存储，保证有序性
     final SortedMap<Integer, String> map = new TreeMap<>();
     int paramCount = paramAnnotations.length;
     // get names from @Param annotations
@@ -90,6 +96,9 @@ public class ParamNameResolver {
     names = Collections.unmodifiableSortedMap(map);
   }
 
+  /**
+   * 获取单个参数的真实名称
+   */
   private String getActualParamName(Method method, int paramIndex) {
     return ParamNameUtil.getParamNames(method).get(paramIndex);
   }
@@ -115,11 +124,11 @@ public class ParamNameResolver {
    * ...).
    * </p>
    *
-   * @param args
-   *          the args
+   * @param args the args
    * @return the named params
    */
   public Object getNamedParams(Object[] args) {
+    //获取参数的个数
     final int paramCount = names.size();
     if (args == null || paramCount == 0) {
       return null;
@@ -146,7 +155,7 @@ public class ParamNameResolver {
   /**
    * Wrap to a {@link ParamMap} if object is {@link Collection} or array.
    *
-   * @param object a parameter object
+   * @param object          a parameter object
    * @param actualParamName an actual parameter name
    *                        (If specify a name, set an object to {@link ParamMap} with specified name)
    * @return a {@link ParamMap}
