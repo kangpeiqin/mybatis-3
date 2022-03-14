@@ -54,19 +54,20 @@ public class XMLStatementBuilder extends BaseBuilder {
   }
 
   public void parseStatementNode() {
+    //获取该条 SQL 的 id
     String id = context.getStringAttribute("id");
     String databaseId = context.getStringAttribute("databaseId");
 
     if (!databaseIdMatchesCurrent(id, databaseId, this.requiredDatabaseId)) {
       return;
     }
-
+    //获取结点名称
     String nodeName = context.getNode().getNodeName();
-    //SQL类型枚举
+    //通过结点名称获取结点对象，SQL类型枚举
     SqlCommandType sqlCommandType = SqlCommandType.valueOf(nodeName.toUpperCase(Locale.ENGLISH));
     boolean isSelect = sqlCommandType == SqlCommandType.SELECT;
     boolean flushCache = context.getBooleanAttribute("flushCache", !isSelect);
-    //是否使用一级缓存
+    //是否使用缓存
     boolean useCache = context.getBooleanAttribute("useCache", isSelect);
     //结果是否进行排序
     boolean resultOrdered = context.getBooleanAttribute("resultOrdered", false);

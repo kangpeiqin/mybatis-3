@@ -29,6 +29,8 @@ import org.w3c.dom.NodeList;
 
 /**
  * XNode类增强了对XML节点的操作
+ * 代表某个 XML 结点
+ *
  * @author Clinton Begin
  */
 public class XNode {
@@ -37,15 +39,21 @@ public class XNode {
    * xml结点
    */
   private final Node node;
+  /**
+   * 结点的名称
+   */
   private final String name;
+  /**
+   * 结点对应的内容
+   */
   private final String body;
   /**
-   * 属性
+   * 结点的属性，本质是哈希表，用于存储键值对
    */
   private final Properties attributes;
   private final Properties variables;
   /**
-   * 对XPath进行封装
+   * 对XPath进行封装，结点对应的解析器，存储整个文档对象，及其对应的解析器
    */
   private final XPathParser xpathParser;
 
@@ -62,6 +70,11 @@ public class XNode {
     return new XNode(xpathParser, node, variables);
   }
 
+  /**
+   * 获取父级结点
+   *
+   * @return
+   */
   public XNode getParent() {
     Node parent = node.getParentNode();
     if (!(parent instanceof Element)) {
@@ -92,13 +105,13 @@ public class XNode {
         builder.insert(0, "_");
       }
       String value = current.getStringAttribute("id",
-          current.getStringAttribute("value",
-              current.getStringAttribute("property", (String) null)));
+        current.getStringAttribute("value",
+          current.getStringAttribute("property", (String) null)));
       if (value != null) {
         value = value.replace('.', '_');
         builder.insert(0, "]");
         builder.insert(0,
-            value);
+          value);
         builder.insert(0, "[");
       }
       builder.insert(0, current.getName());
@@ -119,6 +132,9 @@ public class XNode {
     return xpathParser.evalDouble(node, expression);
   }
 
+  /**
+   * 通过表达式获取给定结点的内容列表
+   */
   public List<XNode> evalNodes(String expression) {
     return xpathParser.evalNodes(node, expression);
   }
@@ -189,7 +205,7 @@ public class XNode {
 
   public <T extends Enum<T>> T getEnumAttribute(Class<T> enumType, String name, T def) {
     String value = getStringAttribute(name);
-    return value == null ? def : Enum.valueOf(enumType,value);
+    return value == null ? def : Enum.valueOf(enumType, value);
   }
 
   /**
@@ -198,10 +214,8 @@ public class XNode {
    * <p>
    * If attribute value is absent, return value that provided from supplier of default value.
    *
-   * @param name
-   *          attribute name
-   * @param defSupplier
-   *          a supplier of default value
+   * @param name        attribute name
+   * @param defSupplier a supplier of default value
    * @return the string attribute
    * @since 3.5.4
    */
@@ -264,6 +278,9 @@ public class XNode {
     return value == null ? def : Float.valueOf(value);
   }
 
+  /**
+   * 获取子结点集合
+   */
   public List<XNode> getChildren() {
     List<XNode> children = new ArrayList<>();
     NodeList nodeList = node.getChildNodes();
@@ -300,6 +317,7 @@ public class XNode {
   private void toString(StringBuilder builder, int level) {
     builder.append("<");
     builder.append(name);
+    //结点的属性
     for (Map.Entry<Object, Object> entry : attributes.entrySet()) {
       builder.append(" ");
       builder.append(entry.getKey());
@@ -307,6 +325,7 @@ public class XNode {
       builder.append(entry.getValue());
       builder.append("\"");
     }
+    //获取子结点
     List<XNode> children = getChildren();
     if (!children.isEmpty()) {
       builder.append(">\n");
@@ -340,6 +359,7 @@ public class XNode {
   /**
    * 获取结点的属性
    * NamedNodeMap：represent collections of nodes that can be accessed by name.
+   *
    * @param n
    * @return
    */
@@ -373,7 +393,7 @@ public class XNode {
 
   private String getBodyData(Node child) {
     if (child.getNodeType() == Node.CDATA_SECTION_NODE
-        || child.getNodeType() == Node.TEXT_NODE) {
+      || child.getNodeType() == Node.TEXT_NODE) {
       String data = ((CharacterData) child).getData();
       data = PropertyParser.parse(data, variables);
       return data;

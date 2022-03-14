@@ -24,6 +24,7 @@ import org.apache.ibatis.type.TypeHandlerRegistry;
 
 /**
  * 参数类型映射
+ *
  * @author Clinton Begin
  */
 public class ParameterMapping {
@@ -32,7 +33,13 @@ public class ParameterMapping {
 
   private String property;
   private ParameterMode mode;
+  /**
+   * Java 数据类型
+   */
   private Class<?> javaType = Object.class;
+  /**
+   * 数据库数据类型
+   */
   private JdbcType jdbcType;
   private Integer numericScale;
   private TypeHandler<?> typeHandler;
@@ -110,8 +117,8 @@ public class ParameterMapping {
       if (ResultSet.class.equals(parameterMapping.javaType)) {
         if (parameterMapping.resultMapId == null) {
           throw new IllegalStateException("Missing resultmap in property '"
-              + parameterMapping.property + "'.  "
-              + "Parameters of type java.sql.ResultSet require a resultmap.");
+            + parameterMapping.property + "'.  "
+            + "Parameters of type java.sql.ResultSet require a resultmap.");
         }
       } else {
         if (parameterMapping.typeHandler == null) {

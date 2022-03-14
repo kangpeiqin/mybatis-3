@@ -62,6 +62,7 @@ public class XPathParser {
 
   public XPathParser(String xml) {
     commonConstructor(false, null, null);
+    //读取字符串创建文档
     this.document = createDocument(new InputSource(new StringReader(xml)));
   }
 
@@ -132,6 +133,7 @@ public class XPathParser {
 
   public XPathParser(InputStream inputStream, boolean validation, Properties variables, EntityResolver entityResolver) {
     commonConstructor(validation, variables, entityResolver);
+    //解析 xml 文件，并获取到文档对象
     this.document = createDocument(new InputSource(inputStream));
   }
 
@@ -180,6 +182,7 @@ public class XPathParser {
 
   /**
    * 通过表达式获取标签数值：如：/employee/birth_date/year
+   *
    * @param expression
    * @return
    */
@@ -220,6 +223,9 @@ public class XPathParser {
     return xnodes;
   }
 
+  /**
+   * 解析结点表达式，返回指定的结点
+   */
   public XNode evalNode(String expression) {
     return evalNode(document, expression);
   }

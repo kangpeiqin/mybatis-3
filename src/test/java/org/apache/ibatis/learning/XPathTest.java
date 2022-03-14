@@ -30,9 +30,10 @@ public class XPathTest {
       InputStream inputStream = Resources.getResourceAsStream("org/apache/ibatis/learning/user.xml");
       DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
       DocumentBuilder builder = factory.newDocumentBuilder();
-      //对字节流进行解析
+      //对字节流进行解析，读取文件获得 xml 文档对象
       Document doc = builder.parse(inputStream);
       XPath xPath = XPathFactory.newInstance().newXPath();
+      //获取给定的结点对象
       NodeList nodeList = (NodeList) xPath.evaluate("/users/*", doc, XPathConstants.NODESET);
       List<User> list = new ArrayList<>();
       for (int i = 1; i < nodeList.getLength() + 1; i++) {

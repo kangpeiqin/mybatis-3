@@ -16,6 +16,8 @@
 package org.apache.ibatis.scripting.xmltags;
 
 /**
+ * SQL 结点
+ *
  * @author Clinton Begin
  */
 public interface SqlNode {
