@@ -2,6 +2,7 @@ package org.apache.ibatis.learning;
 
 import org.apache.ibatis.builder.BuilderException;
 import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.parsing.XPathParser;
 import org.apache.ibatis.submitted.permissions.Resource;
 import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
@@ -12,6 +13,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,13 +23,15 @@ import java.util.List;
  * @since 1.0.0
  */
 
-public class XPathTest {
+class XPathTest {
+
+  String resource = "org/apache/ibatis/learning/user.xml";
 
   @Test
-  public void xpathParserTest() {
+  void xpathParserTest() {
     try {
       //读取xml文件
-      InputStream inputStream = Resources.getResourceAsStream("org/apache/ibatis/learning/user.xml");
+      InputStream inputStream = Resources.getResourceAsStream(resource);
       DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
       DocumentBuilder builder = factory.newDocumentBuilder();
       //对字节流进行解析，读取文件获得 xml 文档对象
@@ -45,7 +49,19 @@ public class XPathTest {
     } catch (Exception e) {
       throw new BuilderException("xml文件解析错误：" + e.getMessage());
     }
+  }
 
+  @Test
+  void formatXNodeToString() {
+    try (InputStream inputStream = Resources.getResourceAsStream(resource)) {
+      XPathParser parser = new XPathParser(inputStream, false, null, null);
+      String usersNodeToString = parser.evalNode("/users").toString();
+      String userNodeToString = parser.evalNode("/users/user").toString();
+      System.out.println(usersNodeToString);
+      System.out.println(userNodeToString);
+    } catch (IOException e) {
+      throw new BuilderException("xml文件解析错误：" + e.getMessage());
+    }
   }
 
 }
