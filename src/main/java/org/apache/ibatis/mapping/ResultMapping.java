@@ -34,10 +34,25 @@ public class ResultMapping {
 
   private Configuration configuration;
   private String property;
+  /**
+   * 列名
+   */
   private String column;
+  /**
+   * 列对应的 Java 类型
+   */
   private Class<?> javaType;
+  /**
+   * 列对应的数据库类型
+   */
   private JdbcType jdbcType;
+  /**
+   * 类型处理器
+   */
   private TypeHandler<?> typeHandler;
+  /**
+   * 对应的 ResultMapId
+   */
   private String nestedResultMapId;
   private String nestedQueryId;
   private Set<String> notNullColumns;
@@ -51,6 +66,13 @@ public class ResultMapping {
   ResultMapping() {
   }
 
+  /**
+   * 建造者模式（Builder Pattern），使用多个简单的对象一步一步构建成一个复杂的对象
+   * 灵活构造复杂对象，该对象会有多个成员变量，在外部调用的时候，
+   * 不需要或者不方便一次性创建出所有的成员变量，
+   * 在这种情况下，如果使用多个构造方法去构建对象，很难维护，这时候Builder设计模式解决这个问题
+   * 进行buid()方法中创建对象，并且将builder传入，该builder中，维护了传入对象的成员变量。
+   */
   public static class Builder {
     private ResultMapping resultMapping = new ResultMapping();
 

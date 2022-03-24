@@ -36,8 +36,17 @@ import org.apache.ibatis.session.Configuration;
  */
 public class BoundSql {
 
+  /**
+   * SQL 语句，采用 final 修饰，在初始化(构造函数中)时被赋初值
+   */
   private final String sql;
+  /**
+   * 参数类型映射列表
+   */
   private final List<ParameterMapping> parameterMappings;
+  /**
+   * 参数
+   */
   private final Object parameterObject;
   private final Map<String, Object> additionalParameters;
   private final MetaObject metaParameters;

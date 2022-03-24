@@ -23,10 +23,22 @@ import java.util.List;
 import org.apache.ibatis.cursor.Cursor;
 
 /**
+ * ResultSetHandler用于在StatementHandler对象执行完查询操作或存储过程后，
+ * 对结果集或存储过程的执行结果进行处理。
+ * 查询结果集处理
+ *
  * @author Clinton Begin
  */
 public interface ResultSetHandler {
 
+  /**
+   * 获取Statement对象中的ResultSet对象，对ResultSet对象进行处理，返回包含结果实体的List对象
+   *
+   * @param stmt {@link Statement}
+   * @param <E>  类型参数
+   * @return List
+   * @throws SQLException SQLException
+   */
   <E> List<E> handleResultSets(Statement stmt) throws SQLException;
 
   <E> Cursor<E> handleCursorResultSets(Statement stmt) throws SQLException;

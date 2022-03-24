@@ -44,6 +44,9 @@ public class XMLLanguageDriver implements LanguageDriver {
     return builder.parseScriptNode();
   }
 
+  /**
+   * 创建 SqlSource (Mapper 方法绑定的 SQL 语句及其参数)
+   */
   @Override
   public SqlSource createSqlSource(Configuration configuration, String script, Class<?> parameterType) {
     // issue #3

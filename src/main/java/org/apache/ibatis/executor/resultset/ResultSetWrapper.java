@@ -37,28 +37,46 @@ import org.apache.ibatis.type.TypeHandlerRegistry;
 import org.apache.ibatis.type.UnknownTypeHandler;
 
 /**
+ * ResultSet 包装类，不改变原有的对象，为原有的对象添加额外的功能
+ * 装饰器模式
  * @author Iwao AVE!
  */
 public class ResultSetWrapper {
 
   private final ResultSet resultSet;
   private final TypeHandlerRegistry typeHandlerRegistry;
+  /**
+   * 用于存储每列的名称，final 修饰，之后不能再引用别的对象，但是引用里面的内容是可以被改变的
+   */
   private final List<String> columnNames = new ArrayList<>();
+  /**
+   * 每列对应的类型集合
+   */
   private final List<String> classNames = new ArrayList<>();
   private final List<JdbcType> jdbcTypes = new ArrayList<>();
   private final Map<String, Map<Class<?>, TypeHandler<?>>> typeHandlerMap = new HashMap<>();
   private final Map<String, List<String>> mappedColumnNamesMap = new HashMap<>();
   private final Map<String, List<String>> unMappedColumnNamesMap = new HashMap<>();
 
+  /**
+   * @param rs
+   * @param configuration
+   * @throws SQLException
+   */
   public ResultSetWrapper(ResultSet rs, Configuration configuration) throws SQLException {
     super();
     this.typeHandlerRegistry = configuration.getTypeHandlerRegistry();
     this.resultSet = rs;
+    //结果集元数据：每列名称、每列类型
     final ResultSetMetaData metaData = rs.getMetaData();
+    //计算有多少列
     final int columnCount = metaData.getColumnCount();
     for (int i = 1; i <= columnCount; i++) {
+      //根据配置获取列别名(AS)
       columnNames.add(configuration.isUseColumnLabel() ? metaData.getColumnLabel(i) : metaData.getColumnName(i));
+      //每列对应的 JDBC 类型集合
       jdbcTypes.add(JdbcType.forCode(metaData.getColumnType(i)));
+      //每列对应的 Java 字段类型集合
       classNames.add(metaData.getColumnClassName(i));
     }
   }
@@ -93,10 +111,8 @@ public class ResultSetWrapper {
    * Tries to get from the TypeHandlerRegistry by searching for the property type.
    * If not found it gets the column JDBC type and tries to get a handler for it.
    *
-   * @param propertyType
-   *          the property type
-   * @param columnName
-   *          the column name
+   * @param propertyType the property type
+   * @param columnName   the column name
    * @return the type handler
    */
   public TypeHandler<?> getTypeHandler(Class<?> propertyType, String columnName) {

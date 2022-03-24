@@ -32,6 +32,8 @@ import org.apache.ibatis.reflection.ParamNameUtil;
 import org.apache.ibatis.session.Configuration;
 
 /**
+ * ResultMap用于建立Java实体属性与数据库字段之间的映射关系
+ *
  * @author Clinton Begin
  */
 public class ResultMap {

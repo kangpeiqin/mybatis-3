@@ -33,6 +33,8 @@ import javax.sql.DataSource;
 import org.apache.ibatis.io.Resources;
 
 /**
+ * 数据库连接(没有使用数据库连接池)，实现 DataSource 接口
+ *
  * @author Clinton Begin
  * @author Eduardo Macarron
  */
@@ -40,6 +42,10 @@ public class UnpooledDataSource implements DataSource {
 
   private ClassLoader driverClassLoader;
   private Properties driverProperties;
+  /**
+   * 内存当中只会存有一份，被所有的 UnpooledDataSource 实例对象共享，可能存在并发问题，
+   * 所以使用 ConcurrentHashMap，保证线程安全
+   */
   private static Map<String, Driver> registeredDrivers = new ConcurrentHashMap<>();
 
   private String driver;
@@ -48,9 +54,13 @@ public class UnpooledDataSource implements DataSource {
   private String password;
 
   private Boolean autoCommit;
+  /**
+   * 默认的事务隔离级别
+   */
   private Integer defaultTransactionIsolationLevel;
   private Integer defaultNetworkTimeout;
 
+  //注册数据库驱动，静态代码块：在类加载后触发，只会执行一次
   static {
     Enumeration<Driver> drivers = DriverManager.getDrivers();
     while (drivers.hasMoreElements()) {
@@ -197,8 +207,7 @@ public class UnpooledDataSource implements DataSource {
   /**
    * Sets the default network timeout value to wait for the database operation to complete. See {@link Connection#setNetworkTimeout(java.util.concurrent.Executor, int)}
    *
-   * @param defaultNetworkTimeout
-   *          The time in milliseconds to wait for the database operation to complete.
+   * @param defaultNetworkTimeout The time in milliseconds to wait for the database operation to complete.
    * @since 3.5.2
    */
   public void setDefaultNetworkTimeout(Integer defaultNetworkTimeout) {
@@ -219,6 +228,9 @@ public class UnpooledDataSource implements DataSource {
     return doGetConnection(props);
   }
 
+  /**
+   * 获取数据库连接对象
+   */
   private Connection doGetConnection(Properties properties) throws SQLException {
     initializeDriver();
     Connection connection = DriverManager.getConnection(url, properties);

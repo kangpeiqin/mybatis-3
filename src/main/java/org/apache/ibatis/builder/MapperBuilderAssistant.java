@@ -50,6 +50,7 @@ import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeHandler;
 
 /**
+ * 复杂对象的构建，简化外部的调用
  * @author Clinton Begin
  */
 public class MapperBuilderAssistant extends BaseBuilder {

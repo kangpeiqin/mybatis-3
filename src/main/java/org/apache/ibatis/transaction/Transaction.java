@@ -27,6 +27,7 @@ import java.sql.SQLException;
 public interface Transaction {
 
   /**
+   * 获取数据库连接
    * Retrieve inner database connection.
    * @return DataBase connection
    * @throws SQLException

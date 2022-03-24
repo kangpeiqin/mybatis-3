@@ -16,12 +16,19 @@
 package org.apache.ibatis.session;
 
 /**
+ * 行数限制
  * @author Clinton Begin
  */
 public class RowBounds {
 
+  /**
+   * 从哪行开始
+   */
   public static final int NO_ROW_OFFSET = 0;
   public static final int NO_ROW_LIMIT = Integer.MAX_VALUE;
+  /**
+   * 类加载时就创建实例
+   */
   public static final RowBounds DEFAULT = new RowBounds();
 
   private final int offset;

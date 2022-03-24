@@ -30,6 +30,7 @@ import org.apache.ibatis.session.Configuration;
 
 /**
  * 描述<select|update|insert|delete>或者@Select、@Update等注解配置的SQL信息
+ * 采用 final 进行修饰，不能被继承
  *
  * @author Clinton Begin
  */
@@ -61,7 +62,14 @@ public final class MappedStatement {
    */
   private boolean useCache;
   private boolean resultOrdered;
+  /**
+   * SQL 的类型(增删改查)
+   */
   private SqlCommandType sqlCommandType;
+  /**
+   * 主键生成策略，默认为Jdbc3KeyGenerator，即数据库自增主键。
+   * 当配置了<selectKey>时，使用SelectKeyGenerator生成主键。
+   */
   private KeyGenerator keyGenerator;
   private String[] keyProperties;
   private String[] keyColumns;
@@ -69,6 +77,9 @@ public final class MappedStatement {
   private String databaseId;
   private Log statementLog;
   private LanguageDriver lang;
+  /**
+   * 结果集
+   */
   private String[] resultSets;
 
   MappedStatement() {
@@ -76,7 +87,7 @@ public final class MappedStatement {
   }
 
   /**
-   * 生成器模式，静态内部类
+   * 生成器模式，静态内部类，可选参数
    */
   public static class Builder {
     /**

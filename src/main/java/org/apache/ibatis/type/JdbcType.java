@@ -20,6 +20,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * SQL 数据类型枚举
+ *
  * @author Clinton Begin
  */
 public enum JdbcType {
@@ -70,8 +72,9 @@ public enum JdbcType {
   TIMESTAMP_WITH_TIMEZONE(Types.TIMESTAMP_WITH_TIMEZONE); // JDBC 4.2 JDK8
 
   public final int TYPE_CODE;
-  private static Map<Integer,JdbcType> codeLookup = new HashMap<>();
+  private static Map<Integer, JdbcType> codeLookup = new HashMap<>();
 
+  //使用静态代码块进行初始化：注册 JDBC 类型(类被加载时便会触发，并且只会被执行一次)
   static {
     for (JdbcType type : JdbcType.values()) {
       codeLookup.put(type.TYPE_CODE, type);
@@ -82,7 +85,7 @@ public enum JdbcType {
     this.TYPE_CODE = code;
   }
 
-  public static JdbcType forCode(int code)  {
+  public static JdbcType forCode(int code) {
     return codeLookup.get(code);
   }
 

@@ -37,6 +37,7 @@ public class SqlSourceBuilder extends BaseBuilder {
   private static final String PARAMETER_PROPERTIES = "javaType,jdbcType,mode,numericScale,resultMap,typeHandler,jdbcTypeName";
 
   public SqlSourceBuilder(Configuration configuration) {
+    //调用父类构造函数进行初始化
     super(configuration);
   }
 

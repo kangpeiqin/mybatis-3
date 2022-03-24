@@ -45,6 +45,7 @@ import org.apache.ibatis.transaction.Transaction;
 import org.apache.ibatis.type.TypeHandlerRegistry;
 
 /**
+ * 抽象类
  * BaseExecutor类用于处理一些通用的逻辑，模板方法模式
  * @author Clinton Begin
  */

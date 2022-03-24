@@ -117,6 +117,7 @@ public class Resources {
   }
 
   /**
+   * 获取配置文件信息，并转成 键值对(key,value)
    * Returns a resource on the classpath as a Properties object
    *
    * @param resource The resource to find

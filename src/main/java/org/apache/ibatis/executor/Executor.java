@@ -59,8 +59,18 @@ public interface Executor {
 
   List<BatchResult> flushStatements() throws SQLException;
 
+  /**
+   * 事务提交
+   * @param required
+   * @throws SQLException
+   */
   void commit(boolean required) throws SQLException;
 
+  /**
+   * 事务回滚
+   * @param required {@link boolean}
+   * @throws SQLException SQLException
+   */
   void rollback(boolean required) throws SQLException;
 
   CacheKey createCacheKey(MappedStatement ms, Object parameterObject, RowBounds rowBounds, BoundSql boundSql);

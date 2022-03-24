@@ -303,18 +303,23 @@ public class MapperAnnotationBuilder {
    * 对 Mapper 接口中的方法进行解析
    */
   void parseStatement(Method method) {
+    //获取方法参数类型
     final Class<?> parameterTypeClass = getParameterType(method);
     final LanguageDriver languageDriver = getLanguageDriver(method);
-    //解析给定方法，获取方法上的注解
+    //解析给定方法，获返回方法上的注解(注解在集合 targetTypes 当中)
     getAnnotationWrapper(method, true, statementAnnotationTypes).ifPresent(statementAnnotation -> {
+      //构建 SQL 源
       final SqlSource sqlSource = buildSqlSource(statementAnnotation.getAnnotation(), parameterTypeClass, languageDriver, method);
+      //获取 SQL 语句的操作类型
       final SqlCommandType sqlCommandType = statementAnnotation.getSqlCommandType();
       final Options options = getAnnotationWrapper(method, false, Options.class).map(x -> (Options) x.getAnnotation()).orElse(null);
+      //类型名 + 方法名作为 id 标识
       final String mappedStatementId = type.getName() + "." + method.getName();
 
       final KeyGenerator keyGenerator;
       String keyProperty = null;
       String keyColumn = null;
+      //如果是执行新增或者更新操作
       if (SqlCommandType.INSERT.equals(sqlCommandType) || SqlCommandType.UPDATE.equals(sqlCommandType)) {
         // first check for SelectKey annotation - that overrides everything else
         SelectKey selectKey = getAnnotationWrapper(method, false, SelectKey.class).map(x -> (SelectKey) x.getAnnotation()).orElse(null);
@@ -400,8 +405,12 @@ public class MapperAnnotationBuilder {
     return configuration.getLanguageDriver(langClass);
   }
 
+  /**
+   * 获取给定方法的参数类型
+   */
   private Class<?> getParameterType(Method method) {
     Class<?> parameterType = null;
+    //方法所有的参数类型
     Class<?>[] parameterTypes = method.getParameterTypes();
     for (Class<?> currentParameterType : parameterTypes) {
       if (!RowBounds.class.isAssignableFrom(currentParameterType) && !ResultHandler.class.isAssignableFrom(currentParameterType)) {
@@ -623,6 +632,9 @@ public class MapperAnnotationBuilder {
     return answer;
   }
 
+  /**
+   * 根据注解类型和参数构建 SqlSource
+   */
   private SqlSource buildSqlSource(Annotation annotation, Class<?> parameterType, LanguageDriver languageDriver,
                                    Method method) {
     if (annotation instanceof Select) {
@@ -656,9 +668,11 @@ public class MapperAnnotationBuilder {
   private Optional<AnnotationWrapper> getAnnotationWrapper(Method method, boolean errorIfNoMatch,
                                                            Collection<Class<? extends Annotation>> targetTypes) {
     String databaseId = configuration.getDatabaseId();
-    //获取方法上面的注解(注解在集合 targetTypes 当中)
+    //获取方法上面的注解(注解在集合 targetTypes 当中)，数据库 id - 注解 Map
     Map<String, AnnotationWrapper> statementAnnotations = targetTypes.stream()
+      // flatMap 可以将多个 Stream 连接成一个 Stream (method.getAnnotationsByType获取方法上特定的注解)
       .flatMap(x -> Arrays.stream(method.getAnnotationsByType(x))).map(AnnotationWrapper::new)
+      //key 值冲突处理
       .collect(Collectors.toMap(AnnotationWrapper::getDatabaseId, x -> x, (existing, duplicate) -> {
         throw new BuilderException(String.format("Detected conflicting annotations '%s' and '%s' on '%s'.",
           existing.getAnnotation(), duplicate.getAnnotation(),
@@ -678,6 +692,7 @@ public class MapperAnnotationBuilder {
           "Could not find a statement annotation that correspond a current database or default statement on method '%s.%s'. Current database id is [%s].",
           method.getDeclaringClass().getName(), method.getName(), databaseId));
     }
+    //返回方法上的注解(注解在集合 targetTypes 当中)
     return Optional.ofNullable(annotationWrapper);
   }
 

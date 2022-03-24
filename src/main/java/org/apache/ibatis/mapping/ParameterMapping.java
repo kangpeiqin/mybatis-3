@@ -34,7 +34,7 @@ public class ParameterMapping {
   private String property;
   private ParameterMode mode;
   /**
-   * Java 数据类型
+   * Java 数据类型，默认为 Object 类型
    */
   private Class<?> javaType = Object.class;
   /**
@@ -42,6 +42,9 @@ public class ParameterMapping {
    */
   private JdbcType jdbcType;
   private Integer numericScale;
+  /**
+   * 类型处理器
+   */
   private TypeHandler<?> typeHandler;
   private String resultMapId;
   private String jdbcTypeName;
