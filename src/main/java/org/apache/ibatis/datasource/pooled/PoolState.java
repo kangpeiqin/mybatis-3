@@ -19,14 +19,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 连接池状态
+ *
  * @author Clinton Begin
  */
 public class PoolState {
 
   protected PooledDataSource dataSource;
 
+  /**
+   * 将数据库连接抽象为对象，每建立一个连接，就创建一个对象
+   * 空闲的数据库连接列表
+   */
   protected final List<PooledConnection> idleConnections = new ArrayList<>();
+  /**
+   * 活跃的数据库连接列表
+   */
   protected final List<PooledConnection> activeConnections = new ArrayList<>();
+  /**
+   * 请求次数统计
+   */
   protected long requestCount = 0;
   protected long accumulatedRequestTime = 0;
   protected long accumulatedCheckoutTime = 0;

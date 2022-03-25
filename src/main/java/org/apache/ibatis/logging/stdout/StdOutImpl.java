@@ -18,6 +18,8 @@ package org.apache.ibatis.logging.stdout;
 import org.apache.ibatis.logging.Log;
 
 /**
+ * 将日志输出标准输出设备
+ *
  * @author Clinton Begin
  */
 public class StdOutImpl implements Log {
@@ -42,6 +44,9 @@ public class StdOutImpl implements Log {
     e.printStackTrace(System.err);
   }
 
+  /**
+   * 输出错误日志
+   */
   @Override
   public void error(String s) {
     System.err.println(s);

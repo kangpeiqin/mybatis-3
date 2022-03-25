@@ -25,6 +25,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /**
+ * xml 定义和规范
  * Offline entity resolver for the MyBatis DTDs.
  *
  * @author Clinton Begin

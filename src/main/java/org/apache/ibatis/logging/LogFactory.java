@@ -18,6 +18,11 @@ package org.apache.ibatis.logging;
 import java.lang.reflect.Constructor;
 
 /**
+ * 当我们未指定使用哪种日志实现时，MyBatis能够按照顺序查找Classpath下的日志框架相关JAR包
+ * 在初始化代码块中，调用LogFactory类的tryImplementation()方法确定日志实现类，
+ * tryImplementation()方法的参数是一个Runnable的匿名对象，
+ * 在run()方法中调用useSLF4JLogging()等方法指定日志实现类
+ *
  * @author Clinton Begin
  * @author Eduardo Macarron
  */
@@ -28,8 +33,12 @@ public final class LogFactory {
    */
   public static final String MARKER = "MYBATIS";
 
+  /**
+   * 日志记录器
+   */
   private static Constructor<? extends Log> logConstructor;
 
+  //静态代码块，在类被加载时(首次使用时类才会被加载)进行初始化的相关工作
   static {
     tryImplementation(LogFactory::useSlf4jLogging);
     tryImplementation(LogFactory::useCommonsLogging);
@@ -97,8 +106,12 @@ public final class LogFactory {
     }
   }
 
+  /**
+   * @param implClass {@link Log} Log 的子类，参数类型限定为 Log 的子类
+   */
   private static void setImplementation(Class<? extends Log> implClass) {
     try {
+      //构造函数获取
       Constructor<? extends Log> candidate = implClass.getConstructor(String.class);
       Log log = candidate.newInstance(LogFactory.class.getName());
       if (log.isDebugEnabled()) {

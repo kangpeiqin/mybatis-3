@@ -27,6 +27,8 @@ import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.SqlSession;
 
 /**
+ * 每个类都有清晰的职责(完成什么样的功能)
+ * 解析后的信息绑定
  * Mapper 信息注册
  *
  * @author Clinton Begin
@@ -35,9 +37,12 @@ import org.apache.ibatis.session.SqlSession;
  */
 public class MapperRegistry {
 
+  /**
+   * 配置文件信息存储对象
+   */
   private final Configuration config;
   /**
-   * 接口-接口代理类工厂(简化对象的创建) Map
+   * Mapper接口-Mapper接口对应的代理类工厂(简化对象的创建) Map
    */
   private final Map<Class<?>, MapperProxyFactory<?>> knownMappers = new HashMap<>();
 

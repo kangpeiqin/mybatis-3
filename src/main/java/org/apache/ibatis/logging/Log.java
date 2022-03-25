@@ -16,7 +16,7 @@
 package org.apache.ibatis.logging;
 
 /**
- * 日志接口
+ * 日志接口: 定义了日志操作的规范
  * @author Clinton Begin
  */
 public interface Log {

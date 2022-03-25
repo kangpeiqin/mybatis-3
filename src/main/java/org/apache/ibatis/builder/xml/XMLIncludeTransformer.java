@@ -31,6 +31,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
+ * xml 中 include 标签的信息转换
  * @author Frank D. Martinez [mnesarco]
  */
 public class XMLIncludeTransformer {

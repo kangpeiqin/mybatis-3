@@ -29,11 +29,22 @@ import org.apache.ibatis.type.TypeHandler;
 import org.apache.ibatis.type.TypeHandlerRegistry;
 
 /**
+ * 基础抽象类，一些公共的处理方法
+ *
  * @author Clinton Begin
  */
 public abstract class BaseBuilder {
+  /**
+   * Configuration对象，用于存储配置文件信息
+   */
   protected final Configuration configuration;
+  /**
+   * 类型别名注册器
+   */
   protected final TypeAliasRegistry typeAliasRegistry;
+  /**
+   * 类型处理器注册
+   */
   protected final TypeHandlerRegistry typeHandlerRegistry;
 
   public BaseBuilder(Configuration configuration) {
@@ -128,7 +139,7 @@ public abstract class BaseBuilder {
       throw new BuilderException("Type " + type.getName() + " is not a valid TypeHandler because it does not implement TypeHandler interface");
     }
     @SuppressWarnings("unchecked") // already verified it is a TypeHandler
-    Class<? extends TypeHandler<?>> typeHandlerType = (Class<? extends TypeHandler<?>>) type;
+      Class<? extends TypeHandler<?>> typeHandlerType = (Class<? extends TypeHandler<?>>) type;
     return resolveTypeHandler(javaType, typeHandlerType);
   }
 

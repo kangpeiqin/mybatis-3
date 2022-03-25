@@ -91,6 +91,7 @@ import org.apache.ibatis.type.TypeHandler;
 import org.apache.ibatis.type.UnknownTypeHandler;
 
 /**
+ * 基于注解的方式信息解析与构建
  * Mapper 接口中使用注解，注解当中的信息的获取、解析
  *
  * @author Clinton Begin

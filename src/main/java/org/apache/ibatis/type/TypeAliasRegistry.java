@@ -40,7 +40,7 @@ import org.apache.ibatis.io.Resources;
 public class TypeAliasRegistry {
 
   /**
-   * 类型别名注册
+   * 类型别名注册(<别名：类>)
    */
   private final Map<String, Class<?>> typeAliases = new HashMap<>();
 

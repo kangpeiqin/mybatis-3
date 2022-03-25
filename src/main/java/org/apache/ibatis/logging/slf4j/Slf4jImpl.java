@@ -22,6 +22,8 @@ import org.slf4j.Marker;
 import org.slf4j.spi.LocationAwareLogger;
 
 /**
+ * 获取 Slf4j 日志接口的具体实现
+ *
  * @author Clinton Begin
  * @author Eduardo Macarron
  */
