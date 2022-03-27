@@ -17,6 +17,8 @@
 > 描述MyBatis主配置文件的信息。
 - Executor
 > 定义了对数据库的增删改查方法，SqlSession是MyBatis提供的操作数据库的API，但是真正执行SQL的是Executor组件。
+![](https://i.bmp.ovh/imgs/2021/12/bcfbbd4d0e442949.png)
+采用模板方法设计模式，`BaseExecutor`类用于处理一些通用的逻辑
 - MappedStatement
 > 描述<select|update|insert|delete>或者@Select、@Update等注解配置的SQL信息
 - StatementHandle
